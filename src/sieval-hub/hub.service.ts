@@ -56,10 +56,7 @@ export class HubService {
       return observableOf(this.token);
     }
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
-    });
-    return this.http.post<any>(url, body, { headers }).pipe(tap(token => (this.token = token)));
+    return this.http.post<any>(url, body).pipe(tap(token => (this.token = token)));
   }
 
   private createAuthHeaders() {
