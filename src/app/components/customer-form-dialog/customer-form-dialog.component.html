@@ -1,0 +1,74 @@
+<h1 mat-dialog-title>Customer Details</h1>
+<mat-dialog-content>
+    <form [formGroup]="customerForm">
+        <mat-form-field>
+            <input formControlName="firstName"
+                   matInput
+                   placeholder="First name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input formControlName="middleName"
+                   matInput
+                   placeholder="Middle name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input formControlName="lastName"
+                   matInput
+                   placeholder="Last name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input formControlName="phone"
+                   matInput
+                   placeholder="Phone">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input formControlName="eMail"
+                   matInput
+                   placeholder="Email">
+        </mat-form-field>
+
+        <h3>Address</h3>
+        <div formGroupName="mainAddress"
+             class="address">
+            <mat-form-field>
+                <input formControlName="street"
+                       matInput
+                       placeholder="Street">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input formControlName="streetNumber"
+                       matInput
+                       placeholder="Number">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input formControlName="zip"
+                       matInput
+                       placeholder="Zip">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input formControlName="city"
+                       matInput
+                       placeholder="City">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button
+            mat-dialog-close
+            color="accent">
+        CLOSE
+    </button>
+    <button mat-button
+            color="accent"
+            (click)="onSubmit()">
+        SUBMIT
+    </button>
+</mat-dialog-actions>

@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Select a material</h1>
+<mat-dialog-content>
+    <mat-table *ngIf="dataSource"
+               mat-table
+               [dataSource]="dataSource">
+        <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="color">
+            <mat-header-cell *matHeaderCellDef>Color</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{getColor(row)}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="salePrice">
+            <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.salePrice}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"
+                 [class.is-selected]="row === selectedMaterial"
+                 (click)="selectedMaterial = row"
+                 (dblclick)="onSelect(row)">
+        </mat-row>
+    </mat-table>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button
+            mat-dialog-close
+            color="accent">
+        CLOSE
+    </button>
+    <button mat-button
+            color="accent"
+            (click)="onSelect(selectedMaterial)">
+        SELECT
+    </button>
+</mat-dialog-actions>

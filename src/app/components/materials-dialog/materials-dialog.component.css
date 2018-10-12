@@ -1,0 +1,10 @@
+sds-materials-dialog .mat-header-row {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+}
+
+sds-materials-dialog .mat-row.is-selected {
+    background: #eee;
+}

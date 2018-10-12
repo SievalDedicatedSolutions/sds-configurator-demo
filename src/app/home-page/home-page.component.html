@@ -1,0 +1,82 @@
+<div class="header">
+    <h1>Project</h1>
+
+    <button mat-raised-button
+            color="accent"
+            (click)="onAddPolygon()">
+        <mat-icon>add_circle</mat-icon>
+        Add Polygon
+    </button>
+
+    <button mat-raised-button
+            color="accent"
+            [disabled]="!polygonsDataSource?.data.length"
+            (click)="onEnterCustomerDetails()">
+        <mat-icon>save</mat-icon>
+        Save project
+    </button>
+
+    <button mat-raised-button
+            color="accent"
+            [disabled]="!project?.hubProjectId"
+            (click)="onSendProject()">
+        <mat-icon>shopping_cart</mat-icon>
+        Send project
+    </button>
+
+    <button mat-raised-button
+            color="accent"
+            (click)="onClearCache()">
+        <mat-icon>delete</mat-icon>
+        Clear project
+    </button>
+</div>
+
+<mat-table *ngIf="polygonsDataSource"
+           [dataSource]="polygonsDataSource">
+
+    <ng-container matColumnDef="salePrice">
+        <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.salePrice}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="modelDescription">
+        <mat-header-cell *matHeaderCellDef>Model</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.modelDescription }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="width">
+        <mat-header-cell *matHeaderCellDef>Width</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.width }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="height">
+        <mat-header-cell *matHeaderCellDef>Height</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.height }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="totalPrice">
+        <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.prices?.totalPrice }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button mat-icon-button
+                    (click)="onEditPolygon(row)">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<div *ngIf="isLoading$ | async"
+     class="loading-indicator">
+    <mat-spinner color="accent"
+                 [diameter]="32">
+    </mat-spinner>
+</div>

@@ -1,0 +1,28 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+      "baseUrl": "./",
+      "outDir": "./dist/out-tsc",
+      "sourceMap": true,
+      "declaration": false,
+      "moduleResolution": "node",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "target": "es5",
+      "typeRoots": [
+        "node_modules/@types"
+      ],
+      "paths": {
+          "@sieval-hub/*": [
+              "src/sieval-hub/*"
+          ],
+          "@store/*": [
+              "src/app/store/*"
+          ]
+      },
+      "lib": [
+        "es2017",
+        "dom"
+      ]
+    }
+  }
