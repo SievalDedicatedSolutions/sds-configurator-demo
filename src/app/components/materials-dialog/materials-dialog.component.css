@@ -1,3 +1,7 @@
+sds-materials-dialog mat-dialog-content {
+    width: 500px;
+}
+
 sds-materials-dialog .mat-header-row {
     position: sticky;
     top: 0;

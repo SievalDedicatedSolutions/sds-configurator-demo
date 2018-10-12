@@ -58,7 +58,7 @@ export class HomePageComponent implements OnInit {
 
       const request: MaterialBrowseRequest = {
         filter: {
-          categoryId: 2001,
+          categoryId: config.categoryId,
           pageSize: 200,
           pageIndex: 0
         }

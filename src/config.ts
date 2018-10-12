@@ -2,5 +2,6 @@ export const config = {
   apiKey: '',
   baseUrl: '',
   emailAddress: '',
-  password: ''
+  password: '',
+  categoryId: 0
 };

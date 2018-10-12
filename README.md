@@ -11,7 +11,8 @@ export const config = {
   apiKey: 'aaaaa-bbb-aaa',
   baseUrl: 'https://test.url.com',
   emailAddress: 'test@test.com',
-  password: 'Password123'
+  password: 'Password123',
+  categoryId: 1234
 };
 ```
 

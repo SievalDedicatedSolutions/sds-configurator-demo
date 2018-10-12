@@ -34,6 +34,7 @@ export class ConfiguratorPageComponent implements OnInit {
       defaultHeight: 123,
       defaultWidth: 123,
       settings: {
+        // change this to select a layout
         layout: ConfiguratorLayout.Basic
       }
     };
