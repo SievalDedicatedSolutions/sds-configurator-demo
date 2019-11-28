@@ -41,7 +41,7 @@ export class HomePageComponent implements OnInit {
 
   applications: HubApplication[] = [];
 
-  project: ConfiguratorProject | null = null;
+  configuratorProject: ConfiguratorProject | null = null;
 
   displayedColumns = ['modelDescription', 'width', 'height', 'totalPrice', 'edit'];
 
@@ -54,6 +54,7 @@ export class HomePageComponent implements OnInit {
         this.processProject(JSON.parse(project) as ConfiguratorProject);
       }
 
+      // BEGIN Demo purposes only
       this.applications = await this.hubService.getUserApplications().toPromise();
 
       const request: MaterialBrowseRequest = {
@@ -67,6 +68,7 @@ export class HomePageComponent implements OnInit {
       const response = await this.hubService
         .browseMaterials(request, this.applications[0].applicationId)
         .toPromise();
+      // END
 
       this.materials = response.items;
     } catch (err) {
@@ -87,6 +89,17 @@ export class HomePageComponent implements OnInit {
     });
   }
 
+  async onDeletePolygon(polygon: Polygon) {
+    const supplierProject = this.configuratorProject.projects.find(prj =>
+      prj.polygons.includes(polygon)
+    );
+    const index = supplierProject.polygons.indexOf(polygon);
+    supplierProject.polygons.splice(index, 1);
+    const calculatedProject = await this.hubService.calculate(this.configuratorProject).toPromise();
+    localStorage.setItem(this.KEY_PROJECT, JSON.stringify(calculatedProject));
+    this.processProject(calculatedProject);
+  }
+
   onAddPolygon() {
     const dialog = this.dialog.open(MaterialsDialogComponent);
     const component = dialog.componentInstance;
@@ -101,7 +114,7 @@ export class HomePageComponent implements OnInit {
 
   onClearCache() {
     localStorage.clear();
-    this.project = null;
+    this.configuratorProject = null;
     this.polygonsDataSource = new MatTableDataSource([]);
   }
 
@@ -120,7 +133,9 @@ export class HomePageComponent implements OnInit {
     const dialog = this.dialog.open(CustomerFormDialogComponent);
     dialog.afterClosed().subscribe((customer: Customer) => {
       if (customer) {
-        this.project.projects.forEach(prj => (prj.deliveryAddress = customer.mainAddress));
+        this.configuratorProject.projects.forEach(
+          prj => (prj.deliveryAddress = customer.mainAddress)
+        );
         this.onSaveProject(customer);
       }
     });
@@ -132,9 +147,10 @@ export class HomePageComponent implements OnInit {
 
     let snackbarMessage: string = null;
     try {
-      await this.hubService.getToken(config.emailAddress, config.password).toPromise();
       const inputProjectBuilder = new InputProjectBuilder();
-      const inputProject = inputProjectBuilder.buildInputConfiguratorProject(this.project);
+      const inputProject = inputProjectBuilder.buildInputConfiguratorProject(
+        this.configuratorProject
+      );
       const savedProject = await this.hubService
         .saveProject({
           inputProject,
@@ -145,7 +161,7 @@ export class HomePageComponent implements OnInit {
       localStorage.setItem(this.KEY_PROJECT, JSON.stringify(savedProject));
       this.processProject(savedProject);
 
-      snackbarMessage = `Project has been saved with Id: ${this.project.hubProjectId}`;
+      snackbarMessage = `Project has been saved with Id: ${this.configuratorProject.hubProjectId}`;
     } catch (err) {
       console.error(err);
 
@@ -162,13 +178,12 @@ export class HomePageComponent implements OnInit {
 
     let snackbarMessage: string = null;
     try {
-      await this.hubService.getToken(config.emailAddress, config.password).toPromise();
-      await this.hubService.sendProject(this.project.hubProjectId).toPromise();
+      await this.hubService.sendProject(this.configuratorProject.hubProjectId).toPromise();
     } catch (err) {
       console.error(err);
 
       snackbarMessage = 'Something went wrong. :(';
-      snackbarMessage = `Project Id: ${this.project.hubProjectId} has been sent.`;
+      snackbarMessage = `Project Id: ${this.configuratorProject.hubProjectId} has been sent.`;
     } finally {
       this.isLoading$.next(false);
       this.snackbar.open(snackbarMessage, 'ok');
@@ -176,7 +191,7 @@ export class HomePageComponent implements OnInit {
   }
 
   private processProject(project: ConfiguratorProject) {
-    this.project = project;
+    this.configuratorProject = project;
     const polygons = project.projects.map(prj => prj.polygons).reduce((a, b) => a.concat(b));
     this.polygonsDataSource = new MatTableDataSource(polygons);
   }

@@ -1,0 +1,44 @@
+h3 {
+  margin: 0;
+}
+
+.configurator-general-messages {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.configurator-message {
+  padding: 16px;
+}
+
+.configurator-message.error {
+  background: rgb(233, 63, 63);
+  color: white;
+}
+
+.configurator-dimensions-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.configurator-width,
+.configurator-height {
+  display: flex;
+  flex-direction: column;
+}
+
+sds-configurator sds-category-favorite-control,
+sds-configurator sds-dimensions,
+sds-configurator sds-product-selector,
+sds-configurator sds-property-control {
+  margin-bottom: 16px;
+}
+
+.configurator-category-favorite img,
+.configurator-image-list-item img,
+.configurator-model img {
+  display: none;
+}

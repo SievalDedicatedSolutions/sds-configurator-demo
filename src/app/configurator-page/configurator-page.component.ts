@@ -1,6 +1,6 @@
-import '@sieval/configurator';
+import '@sieval/configurator/basic/sds-configurator';
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfiguratorProject } from '@sieval/hub-client';
 import { config } from 'src/config';
@@ -10,7 +10,8 @@ import { ConfiguratorLayout } from 'src/interfaces/configurator-layout';
 @Component({
   selector: 'sds-configurator-page',
   templateUrl: './configurator-page.component.html',
-  styleUrls: ['./configurator-page.component.css']
+  styleUrls: ['./configurator-page.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ConfiguratorPageComponent implements OnInit {
   private readonly KEY_PROJECT = 'shoppingCartProject';

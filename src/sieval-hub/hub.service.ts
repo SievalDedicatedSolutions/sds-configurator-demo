@@ -6,7 +6,8 @@ import {
   Material,
   MaterialBrowseRequest,
   PagedResult,
-  SaveProjectRequest
+  SaveProjectRequest,
+  InputProjectBuilder
 } from '@sieval/hub-client';
 import { of as observableOf } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -29,6 +30,18 @@ export class HubService {
     const url = `${this.apiUrl}/Configurator/Material/Browse?applicationId=${applicationId}`;
     const headers = this.createAuthHeaders();
     return this.http.post<PagedResult<Material>>(url, request, { headers });
+  }
+
+  calculate(project: ConfiguratorProject) {
+    const builder = new InputProjectBuilder();
+    const inputProject = builder.buildInputConfiguratorProject(project);
+
+    const url = `${this.apiUrl}/Configurator/Project/Calculate`;
+    const headers = new HttpHeaders({
+      Authorization: `${this.token.token_type} ${this.token.access_token}`
+    });
+
+    return this.http.put<ConfiguratorProject>(url, inputProject, { headers });
   }
 
   saveProject(request: SaveProjectRequest) {
