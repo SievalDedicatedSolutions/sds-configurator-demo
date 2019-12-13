@@ -1,11 +1,11 @@
 import '@sieval/configurator/basic/sds-configurator';
+// import '@sieval/configurator/accordion/sds-configurator';
 
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfiguratorProject } from '@sieval/hub-client';
 import { config } from 'src/config';
 import { ConfiguratorConfig } from 'src/interfaces';
-import { ConfiguratorLayout } from 'src/interfaces/configurator-layout';
 
 @Component({
   selector: 'sds-configurator-page',
@@ -33,11 +33,7 @@ export class ConfiguratorPageComponent implements OnInit {
     const configuratorConfig: ConfiguratorConfig = {
       startWithDefaultModel: true,
       defaultHeight: 123,
-      defaultWidth: 123,
-      settings: {
-        // change this to select a layout
-        layout: ConfiguratorLayout.Basic
-      }
+      defaultWidth: 123
     };
 
     const project = localStorage.getItem(this.KEY_PROJECT);
