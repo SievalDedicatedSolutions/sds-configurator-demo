@@ -11,6 +11,7 @@ h3 {
 
 .configurator-message {
   padding: 16px;
+  background: white;
 }
 
 .configurator-message.error {
@@ -35,10 +36,4 @@ sds-configurator sds-dimensions,
 sds-configurator sds-product-selector,
 sds-configurator sds-property-control {
   margin-bottom: 16px;
-}
-
-.configurator-category-favorite img,
-.configurator-image-list-item img,
-.configurator-model img {
-  display: none;
 }
